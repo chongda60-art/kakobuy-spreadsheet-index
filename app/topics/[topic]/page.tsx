@@ -5,7 +5,7 @@ import { categories, curicartLink } from "@/lib/links";
 
 type Params = Promise<{ topic: string }>;
 export function generateStaticParams() { return [{ topic: "qc-photos" }, { topic: "product-links" }, { topic: "spreadsheets" }]; }
-export async function generateMetadata({ params }: { params: Params }) { const { topic: slug } = await params; const topic = getTopic(slug); return topic ? { title: topic.name, description: topic.description, alternates: { canonical: `/topics/${slug}` }, robots: { index: false, follow: false } } : {}; }
+export async function generateMetadata({ params }: { params: Params }) { const { topic: slug } = await params; const topic = getTopic(slug); return topic ? { title: topic.name, description: topic.description, alternates: { canonical: `/topics/${slug}` }, robots: { index: false, follow: true } } : {}; }
 export default async function TopicPage({ params }: { params: Params }) {
   const { topic: slug } = await params;
   const topic = getTopic(slug);

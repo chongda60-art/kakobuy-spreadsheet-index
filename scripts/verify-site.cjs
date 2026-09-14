@@ -1,3 +1,31 @@
 const { chromium } = require('E:/seo/node_modules/playwright');
 const baseURL = process.env.KAKOBUY_BASE_URL || 'http://localhost:3130';
-(async () => { const browser = await chromium.launch({ headless: true }); const page = await browser.newPage(); const routes = ['/','/questions','/questions/where-to-see-kakobuy-qc-photos','/topics/qc-photos','/sources']; const report = []; for (const route of routes) { await page.goto(`${baseURL}${route}`, { waitUntil: 'networkidle' }); const data = await page.evaluate(() => ({ title: document.title, h1: document.querySelectorAll('h1').length, forbidden: /CuriCart Bridge|bridge|approved data|referral UTM|These links leave|Open category on CuriCart|The user wants|Publishing Notes|Evidence Summary/i.test(document.body.innerText), localProductLinks: [...document.querySelectorAll('a')].filter((a) => a.getAttribute('href')?.includes('/product/')).length, badCuricartLinks: [...document.querySelectorAll('a[href*="www.curicart.com"]')].filter((a) => { try { const u = new URL(a.href); return u.origin !== 'https://www.curicart.com' || !u.searchParams.get('utm_source') || !u.searchParams.get('utm_medium') || !u.searchParams.get('utm_campaign') || !u.searchParams.get('utm_content'); } catch { return true; } }).length })); report.push({ route, ...data }); } const robots = await (await fetch(`${baseURL}/robots.txt`)).text(); const sitemap = await (await fetch(`${baseURL}/sitemap.xml`)).text(); console.log(JSON.stringify({ report, robots, sitemap }, null, 2)); await browser.close(); })();
+
+(async () => {
+  const browser = await chromium.launch({ headless: true });
+  const page = await browser.newPage();
+  const routes = ['/', '/questions', '/questions/where-to-see-kakobuy-qc-photos', '/questions/kakobuy-product-link-not-working', '/questions/choose-kakobuy-spreadsheet-with-qc-photos', '/topics/qc-photos', '/sources'];
+  const report = [];
+  for (const route of routes) {
+    await page.goto(`${baseURL}${route}`, { waitUntil: 'networkidle' });
+    const data = await page.evaluate(() => ({
+      title: document.title,
+      h1: document.querySelectorAll('h1').length,
+      faq: [...document.querySelectorAll('.related')].find((section) => section.querySelector('h2')?.textContent === 'FAQ')?.querySelectorAll('h3').length || 0,
+      visibleWords: document.body.innerText.trim().split(/\s+/).length,
+      robots: document.querySelector('meta[name="robots"]')?.content || '',
+      canonical: document.querySelector('link[rel="canonical"]')?.href || '',
+      articleSchema: [...document.querySelectorAll('script[type="application/ld+json"]')].some((node) => /Article|FAQPage/.test(node.textContent || '')),
+      forbidden: /CuriCart Bridge|bridge|approved data|referral UTM|These links leave|Open category on CuriCart|The user wants|Publishing Notes|Evidence Summary/i.test(document.body.innerText),
+      localProductLinks: [...document.querySelectorAll('a')].filter((a) => a.getAttribute('href')?.includes('/product/')).length,
+      badCuricartLinks: [...document.querySelectorAll('a[href*="www.curicart.com"]')].filter((a) => {
+        try { const u = new URL(a.href); return u.origin !== 'https://www.curicart.com' || !u.searchParams.get('utm_source') || !u.searchParams.get('utm_medium') || !u.searchParams.get('utm_campaign') || !u.searchParams.get('utm_content'); } catch { return true; }
+      }).length,
+    }));
+    report.push({ route, ...data });
+  }
+  const robots = await (await fetch(`${baseURL}/robots.txt`)).text();
+  const sitemap = await (await fetch(`${baseURL}/sitemap.xml`)).text();
+  console.log(JSON.stringify({ report, robots, sitemap }, null, 2));
+  await browser.close();
+})();
