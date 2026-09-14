@@ -7,7 +7,7 @@ import { Markdown } from "@/lib/markdown";
 
 type Params = Promise<{ slug: string }>;
 export function generateStaticParams() { return articles.map((article) => ({ slug: article.slug })); }
-export async function generateMetadata({ params }: { params: Params }) { const { slug } = await params; const article = getArticle(slug); return article ? { title: article.title, description: article.meta, alternates: { canonical: `/questions/${slug}` }, robots: { index: false, follow: true } } : {}; }
+export async function generateMetadata({ params }: { params: Params }) { const { slug } = await params; const article = getArticle(slug); return article ? { title: article.title, description: article.meta, alternates: { canonical: `/questions/${slug}` }, robots: { index: true, follow: true } } : {}; }
 export default async function QuestionPage({ params }: { params: Params }) {
   const { slug } = await params;
   const article = getArticle(slug);

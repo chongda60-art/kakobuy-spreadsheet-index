@@ -1,2 +1,6 @@
 import type { MetadataRoute } from "next";
-export default function sitemap(): MetadataRoute.Sitemap { return []; }
+
+const base = "https://kakobuyspreadsheetindex.com";
+export default function sitemap(): MetadataRoute.Sitemap {
+  return ["/", "/questions", "/questions/where-to-see-kakobuy-qc-photos", "/questions/kakobuy-product-link-not-working", "/questions/choose-kakobuy-spreadsheet-with-qc-photos"].map((path) => ({ url: `${base}${path}` }));
+}
