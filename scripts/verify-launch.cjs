@@ -1,6 +1,6 @@
 const { chromium } = require('E:/seo/node_modules/playwright');
 const base = process.env.KAKOBUY_BASE_URL || 'https://kakobuyspreadsheetindex.com';
-const indexable = ['/', '/questions', '/questions/where-to-see-kakobuy-qc-photos', '/questions/kakobuy-product-link-not-working', '/questions/choose-kakobuy-spreadsheet-with-qc-photos'];
+const indexable = ['/', '/questions', '/questions/where-to-see-kakobuy-qc-photos', '/questions/kakobuy-product-link-not-working', '/questions/choose-kakobuy-spreadsheet-with-qc-photos', '/questions/how-to-read-a-kakobuy-weidian-link', '/questions/kakobuy-shoe-size-chart-and-labels-guide'];
 const noindex = ['/topics/qc-photos', '/sources', '/about', '/contact', '/privacy'];
 (async () => {
   const browser = await chromium.launch({ headless: true });
