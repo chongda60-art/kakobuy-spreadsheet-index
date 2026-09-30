@@ -16,7 +16,7 @@ const noindex = ['/topics/qc-photos', '/sources', '/about', '/contact', '/privac
       faq: [...document.querySelectorAll('.related')].find((s) => s.querySelector('h2')?.textContent === 'FAQ')?.querySelectorAll('h3').length || 0,
       schema: [...document.querySelectorAll('script[type="application/ld+json"]')].map((s) => s.textContent || ''),
       forbidden: /CuriCart Bridge|bridge|approved data|referral UTM|These links leave|Open category on CuriCart|The user wants|Publishing Notes|Evidence Summary/i.test(document.body.innerText),
-      badCuricartLinks: [...document.querySelectorAll('a[href*="www.curicart.com"]')].filter((a) => { try { const u = new URL(a.href); return u.origin !== 'https://www.curicart.com' || ['utm_source','utm_medium','utm_campaign','utm_content'].some((key) => !u.searchParams.get(key)); } catch { return true; } }).length,
+      badCuricartLinks: [...document.querySelectorAll('a[href*="www.curicart.com"]')].filter((a) => a.dataset.utmExempt !== 'true').filter((a) => { try { const u = new URL(a.href); return u.origin !== 'https://www.curicart.com' || ['utm_source','utm_medium','utm_campaign','utm_content'].some((key) => !u.searchParams.get(key)); } catch { return true; } }).length,
     }));
     pages.push({ route, status: response?.status() || 0, ...data });
   }

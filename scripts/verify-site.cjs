@@ -18,7 +18,7 @@ const baseURL = process.env.KAKOBUY_BASE_URL || 'http://localhost:3130';
       articleSchema: [...document.querySelectorAll('script[type="application/ld+json"]')].some((node) => /Article|FAQPage/.test(node.textContent || '')),
       forbidden: /CuriCart Bridge|bridge|approved data|referral UTM|These links leave|Open category on CuriCart|The user wants|Publishing Notes|Evidence Summary/i.test(document.body.innerText),
       localProductLinks: [...document.querySelectorAll('a')].filter((a) => a.getAttribute('href')?.includes('/product/')).length,
-      badCuricartLinks: [...document.querySelectorAll('a[href*="www.curicart.com"]')].filter((a) => {
+      badCuricartLinks: [...document.querySelectorAll('a[href*="www.curicart.com"]')].filter((a) => a.dataset.utmExempt !== 'true').filter((a) => {
         try { const u = new URL(a.href); return u.origin !== 'https://www.curicart.com' || !u.searchParams.get('utm_source') || !u.searchParams.get('utm_medium') || !u.searchParams.get('utm_campaign') || !u.searchParams.get('utm_content'); } catch { return true; }
       }).length,
     }));

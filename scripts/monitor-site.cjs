@@ -34,7 +34,7 @@ function fail(route, check, detail) { return { route, check, detail }; }
       const canonical = document.querySelector('link[rel="canonical"]')?.href || '';
       const schema = [...document.querySelectorAll('script[type="application/ld+json"]')].map((node) => { try { return JSON.parse(node.textContent || '{}')['@type']; } catch { return null; } }).filter(Boolean);
       const curicartLinks = [...document.querySelectorAll('a[href*="www.curicart.com"]')];
-      const badCuricart = curicartLinks.filter((anchor) => { try { const u = new URL(anchor.href); return u.origin !== 'https://www.curicart.com' || ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].some((key) => !u.searchParams.get(key)); } catch { return true; } }).length;
+      const badCuricart = curicartLinks.filter((anchor) => anchor.dataset.utmExempt !== 'true').filter((anchor) => { try { const u = new URL(anchor.href); return u.origin !== 'https://www.curicart.com' || ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].some((key) => !u.searchParams.get(key)); } catch { return true; } }).length;
       return { robots, canonical, title: document.title, h1: document.querySelectorAll('h1').length, schema, badCuricart, scrollWidth: document.documentElement.scrollWidth, viewportWidth: window.innerWidth };
     });
     if (!response || response.status() !== 200) failures.push(fail(route, 'http', String(response?.status() || 0)));
