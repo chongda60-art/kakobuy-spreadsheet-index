@@ -9,7 +9,7 @@ export function curicartLink(path: string, content: string) {
 }
 
 export const categories = [
-  { name: "Shoe", slug: "shoe", icon: "◒", path: "/en/search.html?Keyword=Shoe" },
-  { name: "Accessories", slug: "accessories", icon: "◇", path: "/en/search.html?Keyword=Accessories" },
-  { name: "Electronics", slug: "electronics", icon: "▣", path: "/en/search.html?Keyword=Electronics" },
+  { name: "Shoe", slug: "shoe", icon: "◒", path: "/en/Productlistt_1.html?fuid=1&&category=Shoe" },
+  { name: "Accessories", slug: "accessories", icon: "◇", path: "/en/Productlistt_9.html?fuid=9&&category=Accessories" },
+  { name: "Electronics", slug: "electronics", icon: "▣", path: "/en/Productlistt_10.html?fuid=10&&category=Electronics" },
 ];
