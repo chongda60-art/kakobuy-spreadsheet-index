@@ -214,11 +214,13 @@
       { "question": "Why do warehouse measurements matter?", "answer": "Kakobuy’s public help information says items are inspected and measured after warehouse arrival. Those later weight or volume records can provide a different basis for the parcel quote than an earlier estimate." },
       { "question": "Does a higher quote prove an extra fee?", "answer": "No. A difference alone does not identify the cause. Compare item count, measurements, packaging, destination, service label, and page stage before drawing a conclusion." },
       { "question": "Can Reddit tell me the exact amount I will pay?", "answer": "No. Reddit discussions show that users care about estimates and final amounts, but each post may involve a different destination, parcel, date, and service. It cannot predict your quote." },
+      { "question": "Why can a logistics update appear late?", "answer": "Kakobuy’s public logistics help information says updates can lag when several parties handle the shipment. Record the page time and compare the latest visible parcel and logistics records instead of assuming a fixed delay." },
       { "question": "What should I do when the records still do not match?", "answer": "Save both records, note the exact fields that differ, and check the current Kakobuy estimator or help page for the parcel stage you are viewing. Use the current official help channel if you need clarification." }
     ],
     "sources": [
       "[Kakobuy shipping estimator](https://kakobuy.com/tools/estimate)",
       "[Kakobuy help on warehouse measurement and shipping amounts](https://kakobuy.com/service/help/question?cid=35&id=84)",
+      "[Kakobuy help on delayed logistics information](https://kakobuy.com/service/help/question?id=111)",
       "[Kakobuy product and shipping estimate context](https://kakobuy.com/item/notfound)",
       "[Recent Kakobuy shipping estimator discussion](https://www.reddit.com/r/kakobuy/comments/1wxuq2b/what_is_the_best_shipping_price_estimator/)",
       "[Kakobuy shipping cost discussion](https://www.reddit.com/r/kakobuy/comments/1vd6wpf/shipping_cost/)",
